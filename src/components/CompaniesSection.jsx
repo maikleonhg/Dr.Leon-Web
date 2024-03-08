@@ -7,7 +7,7 @@ import { Container } from 'postcss'
 export const CompaniesSection = () => {
   return (
     <section className=''>
-        <div className='grid gap-y-8 grid-cols-2 justify-items-center p-12 sm:flex bg-[#F7F8F9] sm:place-content-around sm:items-center sm:p-20'>
+        <div className='grid gap-y-8 grid-cols-2 justify-items-center p-12 sm:flex bg-[#FFFF] sm:place-content-around sm:items-center sm:p-20'>
             <div className='col-span-2 p-8'>
                 <h2 className='text-2xl font-bold text-[#000147]'>Acreditado por instituciones</h2>
             </div>

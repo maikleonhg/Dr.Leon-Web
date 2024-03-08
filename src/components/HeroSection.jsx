@@ -3,7 +3,7 @@ import imageMobile from '../assets/Foto_principal-removebg-preview.png'
 
 export const HeroSection = () => {
   return (
-    <section className='bg-[#F7F8F9] '>
+    <section className='bg-[#F8F8F9] '>
         <div className='md:flex lg:flex justify-evenly grid justify-items-center'>
                 <div className='grid justify-items-center sm:h+5 grid-cols-1 gap-2 content-center'> 
                     <h1 className='text-[40px] font-bold text-center sm:text-left m-4 w-80 text-[#000147]'>Dr. León Espino Julio Alejandro</h1>
