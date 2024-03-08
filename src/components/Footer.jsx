@@ -2,7 +2,7 @@ import logoFinal from '../assets/Dr.LeonLogoFin.png'
 
 export const Footer = () => {
   return (
-    <section className='bg-[#000147]/[.6]'>
+    <section id='contacto' className='bg-[#000147]/[.6]'>
         <div className="grid md:flex px-8 pt-8 place-content-around">
             <div>
                 <h1 className='font-bold text-[#000147] flex justify-center md:justify-start mb-4'>Contacto</h1>
@@ -53,7 +53,7 @@ export const Footer = () => {
             </div>
         </div>
         <div>
-            <div className='text-[#FFFF]/[.7] p-5 text-center md:text-left'>
+            <div className='text-[#FFFF]/[.7] p-5 text-center'>
                  ©2024 DR.LEON Landing Page - All Rights Reserved
             </div>
             <div>

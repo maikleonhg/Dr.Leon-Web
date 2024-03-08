@@ -1,25 +1,47 @@
-import burguerMenu from '../assets/Menu Hamburgiuesa.svg'
-import closeBtn from '../assets/icon-menu-close.svg'
+import { useState } from 'react';
+import burgerMenuIcon from '../assets/Menu Hamburgiuesa.svg'; // Ensure correct spelling and path
+import closeIcon from '../assets/icon-menu-close.svg'; // Ensure correct spelling and path
 
 export const NavBar = () => {
-    
+  // State to handle the visibility of the mobile navigation menu
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Function to toggle the mobile navigation menu visibility
+  const toggleMenu = () => {
+    setIsMenuOpen((prev) => !prev);
+  };
+
   return (
-    <>
-    <div className='sm:items-center flex justify-end place-content-between '>
-        <div>
-            <ul className="bg-[#F7F8F9] hidden md:flex text-[18px] sm:w-[438px] sm:place-content-around sm:text-[16px] text-[#000147] font-bold ">
-                <li><a href="#">Inicio</a></li>
-                <li><a href="#">Acerca de</a></li>
-                <li><a href="#">Servicios</a></li>
-                <li><a href="#">Contáctanos</a></li>
-            </ul>
-        </div>
-        <div className='justify-items-end'>
-            <img className='w-10 h-12 cursor-pointer md:hidden'
-            src={burguerMenu} alt="Menu"  />
-            <button className='delay-150 duration-100 transform hover:scale-125 transition ease-linear bg-[#262161] px-6 py-2 m-4 text-[#F7F8F9] rounded-b-2xl hidden md:flex '>Iniciar sesión</button>
-        </div>
-     </div>
-    </>
-  )
-}
+    <header className='relative flex justify-between items-center p-4 bg-[#F7F8F9] md:justify-end'>
+      
+      {/* Mobile menu open icon */}
+      <button 
+  className={`md:hidden ${isMenuOpen ? 'opacity-70' : ''}`} 
+  onClick={toggleMenu}
+>
+  <img 
+    className='w-10 h-12 cursor-pointer'
+    src={burgerMenuIcon}
+    alt="Toggle Menu"
+  />
+</button>
+
+      {/* Navigation links */}
+      <nav className={`${
+  isMenuOpen ? 'flex' : 'hidden'
+} flex-col md:flex md:flex-row md:relative md:top-auto md:w-auto top-full md:bg-[#F7F8F9]  bg-[#F7F8F9] items-center right-8 gap-4 absolute transition-all ease-linear duration-300 z-20 overflow-hidden rounded-lg shadow-xl`}>
+        <ul className='flex flex-col md:flex-row text-[18px] sm:text-[16px] text-[#000147] font-bold w-full '>
+          <li><a href="#" className='block px-6 py-2 hover:bg-[#262161] hover:text-[#F7F8F9]'>Inicio</a></li>
+          <li><a href="#acerca-de" className='block px-6 py-2 hover:bg-[#262161] hover:text-[#F7F8F9]'>Acerca de</a></li>
+          <li><a href="#servicios" className='block px-6 py-2 hover:bg-[#262161] hover:text-[#F7F8F9]'>Servicios</a></li>
+          <li><a href="#contacto" className='block px-6 py-2 hover:bg-[#262161] hover:text-[#F7F8F9]'>Contáctanos</a></li>
+        </ul>
+      </nav>
+      
+      {/* Sign-in button for larger screens */}
+      <button className='hidden md:inline-block delay-150 duration-100 transform hover:scale-125 transition ease-linear bg-[#262161] px-6 py-2 text-[#F7F8F9] rounded-lg'>
+        Iniciar sesión
+      </button>
+    </header>
+  );
+};

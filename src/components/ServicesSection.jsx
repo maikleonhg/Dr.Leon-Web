@@ -4,7 +4,7 @@ import ventilacion from '../assets/Extras/ventilacion.jpg'
 
 export const ServicesSection = () => {
   return (
-    <section className='bg-[#F7F8F9] pt-10 px-8 pb-14'>
+    <section id='servicios' className='bg-[#F7F8F9] pt-10 px-8 pb-14'>
         <div className=''>
             <div className='md:flex text-center '>
                 <div className='basis-1/3 grid place-content-center'>

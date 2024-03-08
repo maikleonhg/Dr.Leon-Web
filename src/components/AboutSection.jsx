@@ -2,7 +2,7 @@ import fotoPerfil from '../assets/Foto Perfil 2.jpeg'
 
 export const AboutSection = () => {
   return (
-    <section className='bg-[#FFFF]'>
+    <section id='acerca-de' className='bg-[#FFFF]'>
         <div className='grid justify-items-center md:flex flex-row-reverse pb-14'>       
             <div className='basis-2/4 p-8 grid grid-cols-1 content-evenly'>
                 <div>
