@@ -2,7 +2,6 @@ import logoUNAM from '../assets/Logos Escuelas/logo unam.png'
 import logoUAEH from '../assets/Logos Escuelas/logo uaeh.png'
 import logoMag from '../assets/Logos Escuelas/hospital-magdalena-de-la-salinas.png'
 import logoTerInt from '../assets/Logos Escuelas/Logo esciela.png'
-import { Container } from 'postcss'
 
 export const CompaniesSection = () => {
   return (
