@@ -8,7 +8,7 @@ export const HeroSection = () => {
   const navigate = useNavigate();
 
   const handleAppointment = () => {
-    navigate('/client-dashboard'); // Usa el path que definiste para ClDash en tus rutas
+    navigate('/signup'); // Usa el path que definiste para ClDash en tus rutas
   };
 
   return (

@@ -15,7 +15,7 @@ export const NavBar = () => {
   };
 
   const handleSignIn = () => {
-    navigate('/doctor-dashboard');
+    navigate('/login');
   };
 
   return (

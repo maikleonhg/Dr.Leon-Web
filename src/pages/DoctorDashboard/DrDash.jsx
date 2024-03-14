@@ -1,8 +1,10 @@
-
+import { CalendarioDr } from './CalendarioDr'
 
 export const DrDash = () => {
     return (
-      <div>DrDash</div>
+      <div>
+      <CalendarioDr />
+      </div>
     )
   }
   

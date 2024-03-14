@@ -1,8 +1,10 @@
-
-
+import { CalendarioCl } from './CalendarioCl'
 
 export const ClDash = () => {
-  return (
-    <div>ClDash</div>
-  )
-}
+    return (
+      <div>
+      <CalendarioCl />
+      </div>
+    )
+  }
+  
