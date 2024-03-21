@@ -1,19 +1,19 @@
 import { NavLink } from 'react-router-dom';
 import SvgIcon from '@mui/material/SvgIcon';
-import { DashboardOutlined, DescriptionOutlined, LocalHospitalOutlined } from '@mui/icons-material';
+import { DashboardOutlined, CalendarMonth, LocalHospitalOutlined } from '@mui/icons-material';
 
 
 export default function AsideOption({ name }) {
   const icons = {
     Perfil: DashboardOutlined,
-    Historia: DescriptionOutlined,
-    Consulta: LocalHospitalOutlined,
+    Agenda: CalendarMonth,
+    Pacientes: LocalHospitalOutlined,
   };
 
   const paths = {
     Perfil: "/profile",
-    Historia: "/historia",
-    Consulta: "/CalendarUser",
+    Agenda: "/agenda",
+    Pacientes: "/pacientes",
   };
 
   return (
