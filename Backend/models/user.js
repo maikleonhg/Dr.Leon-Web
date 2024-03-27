@@ -4,7 +4,8 @@ import db from '../database/db.js'; // Asegúrate de ajustar la ruta de importac
 
 const User = db.define('User', {
   id: {
-    type: DataTypes.STRING(191),
+    type: DataTypes.UUID,
+    defaultValue: Sequelize.UUIDV4, // Genera automáticamente un UUID para nuevos registros
     allowNull: false,
     primaryKey: true
   },
