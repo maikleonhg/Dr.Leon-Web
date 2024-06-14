@@ -14,6 +14,8 @@ const authenticateUser = async ({ username, password }) => {
   }
 
   const passwordMatch = await bcrypt.compare(password, user.password);
+  console.log('Longitud de la contraseña almacenada:', user.password.length);
+  console.log('Longitud de la contraseña proporcionada:', password.length);
   console.log('Coincidencia de contraseña:', passwordMatch ? 'Sí' : 'No');
   if (!passwordMatch) {
     throw new Error('Invalid username or password.');
