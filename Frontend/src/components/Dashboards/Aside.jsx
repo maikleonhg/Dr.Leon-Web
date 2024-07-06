@@ -5,9 +5,9 @@ function Aside() {
   const options = ['Perfil', 'Historia', 'Consulta'];
   
   return (
-    <aside className="flex flex-col p-4 bg-transparent border-r border-gray-300">
-      <span className="text-lg mb-2">Personal</span>
-      <div className='flex flex-col space-y-2'>
+    <aside className="flex flex-col p-4 bg-transparent sm:border-r border-gray-300">
+      <span className="hidden sm:block text-lg mb-2">Personal</span>
+      <div className='flex flex-row justify-around  sm:flex-col sm:space-y-2'>
         {options.map(option => 
           <AsideOption 
             name={option}

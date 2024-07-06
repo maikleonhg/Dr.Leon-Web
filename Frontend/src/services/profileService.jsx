@@ -25,6 +25,13 @@ const fetchWithAuth = async (url, options = {}) => {
   return response.json();
 };
 
+//Obtener datos del perfil básico
+export const getBasicProfile = () => {
+  console.log('Datos recibidos en getBasicProfile');
+  return fetchWithAuth('/basic-profile', {
+    method: 'GET',
+  });
+};
 
 // Obtener datos del perfil
 export const getProfile = () => {

@@ -120,8 +120,8 @@ function MainData() {
   return (
     <div className="select-none">
       <HeaderDashboardCl />
-      <main className="flex">
-        <Aside />
+      <main className="flex flex-col sm:flex-row">
+        <Aside className="sm:order-1 order-2" />
         <section className="p-6 flex-1">
           <h2 className="mb-5 text-2xl font-semibold">Historia médica</h2>
 

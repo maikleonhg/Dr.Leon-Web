@@ -14,6 +14,7 @@ import { Agenda } from './pages/DoctorDashboard/Agenda';
 import { Pacientes } from './pages/DoctorDashboard/Pacientes';
 import ClCalendar from './pages/PatientDashboard/ClCalendar';
 import { CalendarioCl } from './pages/PatientDashboard/CalendarioCl';
+import CalendarGoogle from './pages/PatientDashboard/CalendarGoogle';
 
 function App() {
   return (
@@ -29,7 +30,7 @@ function App() {
           <Route path='/pacientes' element={<ProtectedRoute requiredRole="MEDIC"><Pacientes /></ProtectedRoute>} /> 
           <Route path="/historia" element={<ProtectedRoute requiredRole="USER"><MainData /></ProtectedRoute>} /> 
           <Route path="/profile" element={<ProtectedRoute><Profile /></ProtectedRoute>} /> 
-          <Route path="/CalendarUser" element={<ProtectedRoute requiredRole="USER"><CalendarioCl /></ProtectedRoute>} /> 
+          <Route path="/CalendarUser" element={<ProtectedRoute requiredRole="USER"><CalendarGoogle /></ProtectedRoute>} /> 
         {/* Define otras rutas según sea necesario */}
       </Routes>
 
