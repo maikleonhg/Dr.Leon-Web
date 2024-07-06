@@ -13,6 +13,8 @@ const authenticateUser = async ({ username, password }) => {
     throw new Error('Invalid username or password.');
   }
 
+  console.log('Datos del usuario encontrado:', user.toJSON());
+
   const passwordMatch = await bcrypt.compare(password, user.password);
   console.log('Longitud de la contraseña almacenada:', user.password.length);
   console.log('Longitud de la contraseña proporcionada:', password.length);
@@ -20,16 +22,20 @@ const authenticateUser = async ({ username, password }) => {
   if (!passwordMatch) {
     throw new Error('Invalid username or password.');
   }
-  console.log('Clave secreta:', process.env.SECRET_KEY);
   console.log('Generando token JWT...');
-  const { password: _, ...userData } = user.toJSON();
-  const token = jwt.sign(userData, process.env.SECRET_KEY, {
-    subject: userData.id,
+  const tokenPayload = {
+    id: user.id,
+    username: user.username,
+    email: user.email,
+    role: user.role, // Incluye el campo role
+  };
+
+  const token = jwt.sign(tokenPayload, process.env.SECRET_KEY, {
     expiresIn: '30m', // Expira en 30 minutos
   });
 
-  console.log('Autenticación exitosa:', { userData, token });
-  return { token, userInfo: userData };
+  console.log('Autenticación exitosa:', { tokenPayload, token });
+  return { token, userInfo: tokenPayload }; // Devuelve tokenPayload en lugar de userData
 };
 
 export default authenticateUser;

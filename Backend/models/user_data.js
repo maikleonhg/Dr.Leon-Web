@@ -1,16 +1,13 @@
 // models/userData.js
 import { Sequelize, DataTypes } from 'sequelize';
-import db from '../database/db';
+import db from '../database/db.js';
 
 const UserData = db.define('UserData', {
-  id: {
-    type: DataTypes.STRING(191),
-    allowNull: false,
-    primaryKey: true
-  },
+
   userId: {
     type: DataTypes.STRING(191),
     allowNull: false,
+    primaryKey: true, 
     unique: true
   },
   fullname: {
@@ -40,7 +37,8 @@ const UserData = db.define('UserData', {
 }, {
   tableName: 'User_data',
   charset: 'utf8mb4',
-  collate: 'utf8mb4_unicode_ci'
+  collate: 'utf8mb4_unicode_ci',
+  timestamps: false
 });
 
 export default UserData;

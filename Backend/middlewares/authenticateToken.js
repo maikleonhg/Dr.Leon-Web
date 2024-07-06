@@ -4,6 +4,7 @@ import jwt from 'jsonwebtoken';
 
 const authenticateMiddleware = (req, res, next) => {
   const authHeader = req.headers.authorization;
+  console.log('Token recibido:', authHeader);
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
     return res.status(401).json({ status: 'error', message: 'Token not provided or invalid.' });

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logoImg from '../assets/logo sf.png'
 import LoginIlustration from '../assets/LoginIlustrationDr.png'
 //import Alert from '../components/Modal/Alert'
@@ -10,6 +11,7 @@ export function LoginIn() {
     username: '',
     password: '',
   });
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,9 +19,25 @@ export function LoginIn() {
     try {
       const data = await loginUser(formData);
       console.log('Usuario autenticado:', data); // Aquí podrías redirigir al usuario a otra página, mostrar un mensaje de éxito, etc.
+
+      // Guardar token en cookies
+      document.cookie = `token=${data.token}`;
+      if (data.userInfo && data.userInfo.role) {
+        document.cookie = `role=${data.userInfo.role}`; // Guarda el rol del usuario
+        console.log('Role del usuario:', data.userInfo.role); // Añade este console.log
+
+        if (data.userInfo.role === 'MEDIC') {
+          console.log('Redirigiendo a /AdminDashboard'); // Añade este console.log
+          navigate('/AdminDashboard');
+        } else {
+          console.log('Redirigiendo a /dashboard'); // Añade este console.log
+          navigate('/dashboard');
+        }
+      } else {
+        console.error('El rol del usuario no está definido.');
+      }
     } catch (error) {
       console.error('Error al autenticar usuario:', error.message);
-      // Aquí podrías mostrar un mensaje de error al usuario
     }
   };
 
