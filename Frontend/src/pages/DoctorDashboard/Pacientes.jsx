@@ -1,65 +1,107 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import HeaderDashboardDr from '../../components/Dashboards/HeaderDashDr';
 import AsideDr from '../../components/Dashboards/AsideDr';
+import { getPacientes, getPacienteById } from '../../services/pacientService';
 
 export const Pacientes = () => {
-  // Ejemplo de datos de pacientes
-  const pacientes = [
-    { nombre: "Juan Pérez", edad: 34, fechaConsulta: "2023-03-15" },
-    { nombre: "Ana Gómez", edad: 28, fechaConsulta: "2023-03-18" },
-    { nombre: "Mayra Lev", edad: 24, fechaConsulta: "2023-03-17" },
-    { nombre: "Maik Leon", edad: 25, fechaConsulta: "2023-03-18" },
-    // Agrega más pacientes aquí
-  ];
+  const [pacientes, setPacientes] = useState([]);
+  const [filteredPacientes, setFilteredPacientes] = useState([]);
+  const [selectedPaciente, setSelectedPaciente] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
- return (
+  useEffect(() => {
+    fetchPacientes();
+  }, []);
+
+  useEffect(() => {
+    setFilteredPacientes(
+      pacientes.filter(paciente =>
+        paciente.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    );
+  }, [searchTerm, pacientes]);
+
+  const fetchPacientes = async () => {
+    try {
+      const data = await getPacientes();
+      console.log('Pacientes data fetched:', data);
+      setPacientes(data);
+      setFilteredPacientes(data);
+    } catch (error) {
+      console.error('Error fetching pacientes:', error);
+    }
+  };
+
+  const handlePacienteSelect = async (id) => {
+    try {
+      const data = await getPacienteById(id);
+      console.log('Paciente data fetched:', data);
+      setSelectedPaciente(data);
+    } catch (error) {
+      console.error('Error fetching paciente details:', error);
+    }
+  };
+
+  const handleBackToTable = () => {
+    setSelectedPaciente(null);
+  };
+
+  return (
     <div>
       <HeaderDashboardDr />
       <main className='flex'>
         <AsideDr />
         <div className='flex-1 p-10'>
           <h2 className='text-2xl font-bold mb-5'>Pacientes</h2>
-          <table className='w-full'>
-            <thead>
-              <tr className='bg-gray-200 text-left'>
-                <th className='p-2'>Nombre</th>
-                <th className='p-2'>Edad</th>
-                <th className='p-2'>Consulta</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pacientes.map((paciente, index) => (
-                <tr key={index} className='border-b text-left'>
-                  <td className='p-2'>{paciente.nombre}</td>
-                  <td className='p-2'>{paciente.edad}</td>
-                  <td className='p-2'>{paciente.fechaConsulta}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </main>
-    </div>
-  );
-};/*
-return (
-    <div>
-      <HeaderDashboardDr />
-      <main className='flex'>
-        <AsideDr />
-        <div className='flex-1 p-10'>
-          <h2 className='text-2xl font-bold mb-5'>Pacientes</h2>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-4'>
-            {pacientes.map((paciente, index) => (
-              <div key={index} className='bg-white shadow-md rounded-lg p-4'>
-                <h3 className='text-xl font-semibold'>{paciente.nombre}</h3>
-                <p>Edad: {paciente.edad} años</p>
-                <p>Consulta: {paciente.fechaConsulta}</p>
+          {!selectedPaciente ? (
+            <div>
+              <input
+                type='text'
+                placeholder='Buscar por nombre'
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className='mb-5 p-2 border border-gray-300 rounded w-full'
+              />
+              <table className='w-full'>
+                <thead>
+                  <tr className='bg-gray-200 text-left'>
+                    <th className='p-2'>Nombre</th>
+                    <th className='p-2'>Edad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {filteredPacientes.map((paciente) => (
+                    <tr key={paciente.userId} className='border-b text-left cursor-pointer' onClick={() => handlePacienteSelect(paciente.userId)}>
+                      <td className='p-2'>{paciente.fullname}</td>
+                      <td className='p-2'>{paciente.age}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ) : (
+            <div>
+              <h3 className='text-lg font-bold mb-3'>Detalles del Paciente</h3>
+              <div>
+                <p><strong>Nombre:</strong> {selectedPaciente.userData.fullname}</p>
+                <p><strong>Edad:</strong> {selectedPaciente.userData.age}</p>
+                <p><strong>Sexo:</strong> {selectedPaciente.userData.sex}</p>
+                <p><strong>Raza:</strong> {selectedPaciente.userData.race}</p>
+                <p><strong>Altura:</strong> {selectedPaciente.userData.height}</p>
+                <p><strong>Peso:</strong> {selectedPaciente.userData.weight}</p>
+                <p><strong>Comorbilidades:</strong> {selectedPaciente.healthData.comorbidity}</p>
+                <p><strong>Alergias:</strong> {selectedPaciente.healthData.alergics}</p>
+                <p><strong>Uso de Cigarros:</strong> {selectedPaciente.healthData.howManyCigars}</p>
+                <p><strong>Uso de Drogas:</strong> {selectedPaciente.healthData.howManyDrugs}</p>
+                <p><strong>Uso de Alcohol:</strong> {selectedPaciente.healthData.howMuchAlcohol}</p>
               </div>
-            ))}
-          </div>
+              <button className='mt-5 p-2 bg-blue-500 text-white rounded' onClick={handleBackToTable}>Volver a los pacientes</button>
+            </div>
+          )}
         </div>
       </main>
     </div>
   );
-};*/
+};
+
+export default Pacientes;

@@ -9,6 +9,7 @@ import authenticateMiddleware from '../middlewares/authenticateToken.js';
 import CreateUserDataController from '../controllers/CreateUserDataController.js';
 import GetUserDataController from '../controllers/getUserDataController.js';
 import getUserBasicDataController from '../controllers/getUserBasicDataController.js';
+import { getPaciente, getPacienteById } from '../controllers/pacienteController.js';
 
 const userRouter = Router();
 
@@ -18,5 +19,8 @@ userRouter.post('/user-data', authenticateMiddleware, CreateUserDataController.h
 userRouter.get('/profile', authenticateMiddleware, GetUserDataController.handle);
 userRouter.get('/basic-profile', authenticateMiddleware, getUserBasicDataController.handle);
 //userRouter.put('/profile', authenticateMiddleware, updateUserController.handle);
+
+userRouter.get('/pacientes', authenticateMiddleware, getPaciente);
+userRouter.get('/pacientes/:id', authenticateMiddleware, getPacienteById);
 
 export default userRouter;
