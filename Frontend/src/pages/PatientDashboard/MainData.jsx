@@ -2,10 +2,10 @@
 
 import React, { useState, useEffect } from "react";
 import Aside from "../../components/Dashboards/Aside";
-import { Button, LinearProgress, Checkbox } from "@mui/material";
+import { Button, Snackbar, Checkbox, Alert } from "@mui/material"; // Importa el componente Alert de MUI
 import { Settings, Notifications, ExitToApp, HomeRounded } from "@mui/icons-material";
 import HeaderDashboardCl from "../../components/Dashboards/HeaderDashCl";
-import { updateMainData, getProfile } from '../../services/profileService.jsx'; // Asegúrate de que la ruta sea correcta
+import { updateMainData, getProfile } from '../../services/profileService.jsx';
 
 function MainData() {
   const [checkedItems, setCheckedItems] = useState({});
@@ -26,6 +26,9 @@ function MainData() {
     }
   });
 
+  const [message, setMessage] = useState('');
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const detailsMap = {
     alergias: "Indícanos a qué eres alérgico",
     medicamentos: "Uso medicamentos y frecuencia",
@@ -38,7 +41,7 @@ function MainData() {
     fullname: "Nombre Completo",
     age: "Edad",
     sex: "Sexo",
-    race: "Raza",
+    race: "Ocupación",
     height: "Altura",
     weight: "Peso"
   };
@@ -111,11 +114,18 @@ function MainData() {
     try {
       const response = await updateMainData(formData);
       console.log('Data updated successfully:', response);
+      setMessage('Datos actualizados correctamente');
+      setOpenSnackbar(true);
     } catch (error) {
       console.error('Error updating data:', error);
+      setMessage('Error al actualizar los datos');
+      setOpenSnackbar(true);
     }
   };
-  
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   return (
     <div className="select-none">
@@ -143,39 +153,38 @@ function MainData() {
               {Object.keys(fieldLabels).map((item, index) => (
                 <div key={index}>
                   <span>{fieldLabels[item]}</span>
-                  <input
-                    type={item === "age" || item === "height" || item === "weight" ? "number" : "text"}
-                    name={item}
-                    className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    placeholder={fieldLabels[item]}
-                    value={formData[item]}
-                    onChange={handleInputChange}
-                  />
+                  {item === "sex" ? (
+                    <select
+                      name={item}
+                      className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      value={formData[item]}
+                      onChange={handleInputChange}
+                    >
+                      <option value="">Seleccionar</option>
+                      <option value="Femenino">Femenino</option>
+                      <option value="Masculino">Masculino</option>
+                      <option value="Otro">Otro</option>
+                    </select>
+                  ) : (
+                    <input
+                      type={item === "age" || item === "height" || item === "weight" ? "number" : "text"}
+                      name={item}
+                      className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                      placeholder={fieldLabels[item]}
+                      value={formData[item]}
+                      onChange={handleInputChange}
+                    />
+                  )}
                 </div>
               ))}
             </div>
 
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-8 py-0 px-2">
-              {Object.entries(checkedItems).map(([key, value]) => value && (
-                <div key={key} className="mt-2">
-                  <span>{detailsMap[key]}</span>
-                  <input
-                    type="text"
-                    name={key}
-                    className="mt-1 block w-full px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    value={formData.details[key]}
-                    onChange={handleDetailChange}
-                  />
-                </div>
-              ))}
-            </div>
-                
             <div className="mt-4">
-              <span>Comorbidades</span>
+              <span>Enfermedades Crónicas</span>
               <textarea
                 name="comorbidity"
                 className="block w-full mt-2 px-4 py-4 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
-                placeholder="Describe tus comorbilidades aquí"
+                placeholder="Describe tus enfermedades crónicas aquí"
                 value={formData.comorbidity}
                 onChange={handleInputChange}
               />
@@ -195,6 +204,18 @@ function MainData() {
               </Button>
             </div>
           </div>
+
+          <Snackbar
+            open={openSnackbar}
+            autoHideDuration={6000}
+            onClose={handleCloseSnackbar}
+            anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+          >
+            <Alert onClose={handleCloseSnackbar} severity="success" sx={{ width: '100%' }}>
+              {message}
+            </Alert>
+          </Snackbar>
+
         </section>
       </main>
     </div>

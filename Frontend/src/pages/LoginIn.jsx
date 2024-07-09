@@ -31,7 +31,7 @@ export function LoginIn() {
           navigate('/AdminDashboard');
         } else {
           console.log('Redirigiendo a /dashboard'); // Añade este console.log
-          navigate('/dashboard');
+          navigate('/historia');
         }
       } else {
         console.error('El rol del usuario no está definido.');

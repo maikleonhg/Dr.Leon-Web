@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import logoImg from '../assets/logo sf.png';
 import SignupIllustration from '../assets/LoginIlustrationDr.png';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signupUser } from '../services/userService';
 
 export function Signup() {
@@ -11,6 +11,8 @@ export function Signup() {
     email: '',
     password: '',
   });
+
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -33,6 +35,8 @@ export function Signup() {
       const data = await signupUser(userData);
       console.log('Registro exitoso:', data);
       alert('Registro exitoso');
+      navigate('/login');
+      
     } catch (error) {
       console.error('Error en el registro:', error);
       alert(`Error en el registro: ${error.message}`);
