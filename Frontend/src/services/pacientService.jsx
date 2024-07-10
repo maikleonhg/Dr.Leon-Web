@@ -1,4 +1,4 @@
-const API_URL = '/api/users';
+const API_URL = import.meta.env.VITE_API_URL;
 
 // Añadir token JWT a las solicitudes
 const fetchWithAuth = async (url, options = {}) => {

@@ -10,6 +10,9 @@ import HeaderDashboardDr from '../../components/Dashboards/HeaderDashDr';
 moment.locale('es');
 const localizer = momentLocalizer(moment);
 
+const apiKeyGC =  import.meta.env.VITE_API_KEY_GCALENDAR;
+const ClientIdGC = import.meta.env.VITE_CLIENT_ID_GCALENDAR;
+
 const messages = {
   previous: '<',
   next: '>',
@@ -28,8 +31,8 @@ export const Agenda = () => {
   useEffect(() => {
     const initClient = () => {
       gapi.client.init({
-        apiKey: 'AIzaSyCBmC52Nkkm6vnA_Kn7r9YGUFBbxMU7grI', // Reemplaza con tu API Key
-        clientId: '196968608547-bjd6lll4398ts35v7c4bvolvket7g9eo.apps.googleusercontent.com', // Reemplaza con tu Client ID
+        apiKey: apiKeyGC, // Reemplaza con tu API Key
+        clientId: ClientIdGC, // Reemplaza con tu Client ID
         discoveryDocs: ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"],
         scope: "https://www.googleapis.com/auth/calendar.readonly",
       }).then(() => {
@@ -52,7 +55,7 @@ export const Agenda = () => {
       'singleEvents': true,
       'maxResults': 10,
       'orderBy': 'startTime',
-      'key': 'TU_API_KEY', // Asegúrate de agregar tu API Key aquí también
+      'key': apiKeyGC, // Asegúrate de agregar tu API Key aquí también
     }).then(response => {
       const events = response.result.items.map(event => ({
         title: event.summary,

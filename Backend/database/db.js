@@ -1,8 +1,17 @@
 import Sequelize from 'sequelize';
+import dotenv from 'dotenv';
 
-const db = new Sequelize('drleonweb', 'wsl_user', 'wsl_password', {
-    host: '172.28.208.1', // Dirección IP del host de Windows
-    dialect: 'mysql', // Utilizamos el dialecto de MySQL
+dotenv.config({ path: '../.env' }); 
+
+const dbname = process.env.DB_NAME
+const dbuser = process.env.DB_USER
+const dbpassword = process.env.DB_PASSWORD
+const dbhost = process.env.DB_HOST
+const dbdialect = process.env.DB_DIALECT
+
+const db = new Sequelize(dbname, dbuser, dbpassword, {
+    host: dbhost, // Dirección IP del host de Windows
+    dialect: dbdialect, 
     logging: console.log,
 });
 

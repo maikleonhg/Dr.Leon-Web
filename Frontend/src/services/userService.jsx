@@ -1,4 +1,4 @@
-const API_URL = '/api/users';
+const API_URL = import.meta.env.VITE_API_URL;
 
 export const signupUser = async (userData) => {
   console.log('Recibiendo solicitud de registro:', userData);
