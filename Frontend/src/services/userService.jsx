@@ -1,7 +1,6 @@
 const API_URL = import.meta.env.VITE_API_URL;
 
 export const signupUser = async (userData) => {
-  console.log('Recibiendo solicitud de registro:', userData);
 
   try {
     const response = await fetch(`${API_URL}/sign-up`, {
@@ -14,12 +13,11 @@ export const signupUser = async (userData) => {
 
     if (!response.ok) {
       const errorData = await response.json();
-      console.error('Error en la solicitud:', errorData);
+      console.error('Error en la solicitud:', errorData.message);
       throw new Error(errorData.message || 'Error en el registro');
     }
 
     const data = await response.json();
-    console.log('Respuesta recibida:', data);
     return data;
   } catch (error) {
     console.error('Error al enviar la solicitud:', error);

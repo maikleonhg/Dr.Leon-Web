@@ -3,7 +3,6 @@ import 'dotenv/config';
 import jwt from 'jsonwebtoken';
 
 const updateUser = async ({ id, username, email }) => {
-  console.log('Datos recibidos en updateUser:', { id, username, email });
 
   const user = await User.findByPk(id);
   if (!user) {
@@ -21,8 +20,8 @@ const updateUser = async ({ id, username, email }) => {
     subject: user.id,
     expiresIn: '5m',
   });
-
-  console.log('Usuario actualizado:', updatedUser);
+  // console.log('Usuario actualizado:', updatedUser);
+  
   return { token, userInfo: { ...userData } };
 };
 

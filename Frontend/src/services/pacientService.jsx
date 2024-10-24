@@ -13,9 +13,7 @@ const fetchWithAuth = async (url, options = {}) => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  console.log('Fetch options:', { ...options, headers });
   const response = await fetch(`${API_URL}${url}`, { ...options, headers });
-  console.log('Respuesta recibida del servidor:', response);
 
   if (!response.ok) {
     const errorData = await response.json();

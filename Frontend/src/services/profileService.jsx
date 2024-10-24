@@ -13,9 +13,7 @@ const fetchWithAuth = async (url, options = {}) => {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  console.log('Fetch options:', { ...options, headers });
   const response = await fetch(`${API_URL}${url}`, { ...options, headers });
-  console.log('Respuesta recibida del servidor:', response);
 
   if (!response.ok) {
     const errorData = await response.json();
@@ -27,7 +25,6 @@ const fetchWithAuth = async (url, options = {}) => {
 
 //Obtener datos del perfil básico
 export const getBasicProfile = () => {
-  console.log('Datos recibidos en getBasicProfile');
   return fetchWithAuth('/basic-profile', {
     method: 'GET',
   });
@@ -49,7 +46,6 @@ export const updateProfile = (profileData) => {
 };
 // Nuevo servicio para actualizar datos del paciente
 export const updateMainData = (mainData) => {
-  console.log('Datos recibidos en updateMainData:', mainData);
   return fetchWithAuth('/user-data', {
     method: 'POST',
     body: JSON.stringify(mainData),

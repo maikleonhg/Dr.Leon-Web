@@ -12,7 +12,7 @@ const dbdialect = process.env.DB_DIALECT
 const db = new Sequelize(dbname, dbuser, dbpassword, {
     host: dbhost, // Dirección IP del host de Windows
     dialect: dbdialect, 
-    logging: console.log,
+    logging: false,
 });
 
 db.authenticate()

@@ -1,7 +1,7 @@
 // services/createUser.js
 import bcrypt from 'bcryptjs';
 import Joi from 'joi';
-import User from '../models/user.js'; // Asegúrate de que la ruta al modelo User sea correcta
+import User from '../models/user.js'; 
 
 const validateUserForm = (data) => {
   const schema = Joi.object({
@@ -15,20 +15,14 @@ const validateUserForm = (data) => {
 };
 
 const createUser = async (userData) => {
-  console.log('Datos recibidos en createUser:', userData);
-  const { error } = validateUserForm(userData);
 
+  const { error } = validateUserForm(userData);
   if (error) {
-    console.log('Error de validación:', error.details[0].message);
     throw new Error(error.details[0].message);
   }
 
   const existingUser = await User.findOne({ where: { username: userData.username } });
   const existingEmail = await User.findOne({ where: { email: userData.email } });
-
-  
-  console.log('Usuario existente:', existingUser);
-  console.log('Email existente:', existingEmail);
 
   if (existingUser || existingEmail) {
     throw new Error('Username or Email already exists.');
@@ -38,10 +32,8 @@ const createUser = async (userData) => {
 
   const newUser = await User.create({
     ...userData,
-    password: hashedPassword
+    password: hashedPassword,
   });
-
-  console.log('Nuevo usuario creado:', newUser);
   return { status: 'success', message: 'You have been successfully registered', user: newUser };
 };
 

@@ -6,6 +6,7 @@ export const getPaciente = async (req, res) => {
     const pacientes = await PacienteService.getPacientes();
     res.status(200).json(pacientes);
   } catch (error) {
+    console.error('Error fetching pacientes:', error); // Mantenemos el log de error para diagnóstico
     res.status(500).json({ message: error.message });
   }
 };
@@ -19,6 +20,7 @@ export const getPacienteById = async (req, res) => {
     }
     res.status(200).json(paciente);
   } catch (error) {
+    console.error('Error fetching paciente by ID:', error); // Mantenemos el log de error para diagnóstico
     res.status(500).json({ message: error.message });
   }
 };

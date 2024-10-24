@@ -1,7 +1,7 @@
 // services/getUserDataService.js
 
-import User_data from '../models/user_data.js'; // Ajusta el nombre del modelo según tu configuración
-import Health_data from '../models/health_data.js'; // Ajusta el nombre del modelo según tu configuración
+import User_data from '../models/user_data.js';
+import Health_data from '../models/health_data.js'; 
 
 const getUserDataService = async (userId) => {
   try {
@@ -29,11 +29,9 @@ const getUserDataService = async (userId) => {
       ...healthData.toJSON(),
     };
 
-    console.log('Datos combinados del usuario:', combinedData);
 
     return combinedData;
   } catch (error) {
-    console.error('Error en getUserDataService:', error);
     throw error;
   }
 };

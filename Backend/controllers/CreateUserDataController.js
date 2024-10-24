@@ -4,10 +4,10 @@ import createUserDataService from '../services/createUserDataService.js';
 
 class CreateUserDataController {
   async handle(req, res) {
-    const { fullname, age, sex, race, height, weight,
-      comorbidity, details} = req.body;
-console.log('Datos del usuario:', req.body);
-
+    const {
+      fullname, age, sex, race, height, weight,
+      comorbidity, details
+    } = req.body;
     // Extraer el token de la cabecera de autorización
     const token = req.headers.authorization.split(' ')[1];
 
@@ -40,7 +40,6 @@ console.log('Datos del usuario:', req.body);
 
       return res.status(201).json(userData);
     } catch (error) {
-      console.error('Error creating user data:', error);
       return res.status(500).json({ message: 'Error creating user data' });
     }
   }
