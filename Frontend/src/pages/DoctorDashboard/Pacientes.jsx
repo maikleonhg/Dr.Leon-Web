@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import HeaderDashboardDr from '../../components/Dashboards/HeaderDashDr';
 import AsideDr from '../../components/Dashboards/AsideDr';
 import { getPacientes, getPacienteById } from '../../services/pacientService';
@@ -24,7 +24,6 @@ export const Pacientes = () => {
   const fetchPacientes = async () => {
     try {
       const data = await getPacientes();
-      console.log('Pacientes data fetched:', data);
       setPacientes(data);
       setFilteredPacientes(data);
     } catch (error) {
@@ -35,7 +34,6 @@ export const Pacientes = () => {
   const handlePacienteSelect = async (id) => {
     try {
       const data = await getPacienteById(id);
-      console.log('Paciente data fetched:', data);
       setSelectedPaciente(data);
     } catch (error) {
       console.error('Error fetching paciente details:', error);

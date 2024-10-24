@@ -1,8 +1,6 @@
 // components/Dashboards/Profile.jsx
 
-import React, { useState, useEffect } from 'react';
-import { Button } from '@mui/material';
-import { Edit, Cancel } from '@mui/icons-material';
+import { useState, useEffect } from 'react';
 import HeaderDashboardCl from '../../components/Dashboards/HeaderDashCl';
 import Aside from "../../components/Dashboards/Aside";
 import profileImg from '../.././assets/Default-Profile2.png'
@@ -20,7 +18,6 @@ function Profile() {
       try {
         console.log('Fetching basic profile data...');
         const data = await getBasicProfile();
-        console.log('Profile data received:', data);
         setUserData(data);
       } catch (error) {
         console.error('Error fetching basic profile:', error);
@@ -29,8 +26,6 @@ function Profile() {
 
     fetchBasicProfile();
   }, []);
-
-  console.log('Current user data state:', userData);
 
   return (
     <div className="content">

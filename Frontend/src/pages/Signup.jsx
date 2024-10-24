@@ -1,9 +1,10 @@
 // src/pages/Signup.jsx
-import React, { useState } from 'react';
+import { useState } from 'react';
 import logoImg from '../assets/logo sf.png';
 import SignupIllustration from '../assets/LoginIlustrationDr.png';
 import { Link, useNavigate } from 'react-router-dom';
 import { signupUser } from '../services/userService';
+import { Snackbar, Alert } from "@mui/material";
 
 export function Signup() {
   const [formData, setFormData] = useState({
@@ -11,7 +12,8 @@ export function Signup() {
     email: '',
     password: '',
   });
-
+  const [error, setError] = useState(null); // Estado para manejar errores
+  const [openSnackbar, setOpenSnackbar] = useState(false); // Estado para abrir o cerrar el Snackbar
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -21,7 +23,6 @@ export function Signup() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Datos del formulario:', formData);
 
     try {
       const userData = {
@@ -31,18 +32,22 @@ export function Signup() {
         role: 'USER',
       };
 
-      console.log('Enviando solicitud de registro al servicio...');
-      const data = await signupUser(userData);
-      console.log('Registro exitoso:', data);
-      alert('Registro exitoso');
+      // Registro exitoso
+      await signupUser(userData);
+      setError(null);
+      setOpenSnackbar(true);
       navigate('/login');
       
     } catch (error) {
-      console.error('Error en el registro:', error);
-      alert(`Error en el registro: ${error.message}`);
+      // Manejo de errores
+      setError(`Error en el registro: ${error.message}`);
+      setOpenSnackbar(true); 
     }
   };
 
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false); 
+  };
 
   return (
     <div className="flex align-stretch h-screen overflow-hidden">
@@ -92,6 +97,17 @@ export function Signup() {
           </p>
         </div>
       </main>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity={error ? "error" : "success"} sx={{ width: '100%' }}>
+          {error ? error : 'Registro exitoso'}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import FullCalendar from '@fullcalendar/react';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -8,7 +8,7 @@ import HeaderDashboardCl from '../../components/Dashboards/HeaderDashCl';
 import Aside from '../../components/Dashboards/Aside';
 
 function ClCalendar() {
-  const [events, setEvents] = useState([
+  const [events] = useState([
     { title: 'Cita con el Dr. Smith', start: '2024-03-17T14:00:00', end: '2024-03-17T15:00:00', color: 'red' },
     // Agrega aquí otros eventos existentes
   ]);

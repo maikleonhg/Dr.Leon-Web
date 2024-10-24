@@ -10,9 +10,7 @@ import AdminDashboard from './pages/AdminDashboard';
 import AdminDashboardDr from './pages/DoctorDashboard/AdminDashboardDr'
 import MainData from './pages/PatientDashboard/MainData';
 import Profile from './pages/PatientDashboard/Profile';
-import { Agenda } from './pages/DoctorDashboard/Agenda';
 import { Pacientes } from './pages/DoctorDashboard/Pacientes';
-import ClCalendar from './pages/PatientDashboard/ClCalendar';
 import CalendarioDr from './pages/DoctorDashboard/CalendarioDr';
 import CalendarGoogle from './pages/PatientDashboard/CalendarGoogle';
 

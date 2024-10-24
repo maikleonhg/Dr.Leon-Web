@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logoImg from '../assets/logo sf.png'
-import LoginIlustration from '../assets/LoginIlustrationDr.png'
-//import Alert from '../components/Modal/Alert'
+import logoImg from '../assets/logo sf.png';
+import LoginIlustration from '../assets/LoginIlustrationDr.png';
 import { Link } from 'react-router-dom';
-import { loginUser } from '../services/loginService.jsx'; // Importa el servicio loginUser
+import { loginUser } from '../services/loginService.jsx'; 
+import { Snackbar, Alert } from "@mui/material"; 
 
 export function LoginIn() {
   const [formData, setFormData] = useState({
     username: '',
     password: '',
   });
+  const [error, setError] = useState(null); // Estado para manejar errores
+  const [openSnackbar, setOpenSnackbar] = useState(false); 
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -18,26 +20,25 @@ export function LoginIn() {
 
     try {
       const data = await loginUser(formData);
-      console.log('Usuario autenticado:', data); // Aquí podrías redirigir al usuario a otra página, mostrar un mensaje de éxito, etc.
 
       // Guardar token en cookies
       document.cookie = `token=${data.token}`;
       if (data.userInfo && data.userInfo.role) {
-        document.cookie = `role=${data.userInfo.role}`; // Guarda el rol del usuario
-        console.log('Role del usuario:', data.userInfo.role); // Añade este console.log
+        document.cookie = `role=${data.userInfo.role}`; 
 
+        // Redirigir según el rol
         if (data.userInfo.role === 'MEDIC') {
-          console.log('Redirigiendo a /AdminDashboard'); // Añade este console.log
           navigate('/AdminDashboard');
         } else {
-          console.log('Redirigiendo a /dashboard'); // Añade este console.log
           navigate('/historia');
         }
       } else {
-        console.error('El rol del usuario no está definido.');
+        setError('El rol del usuario no está definido.');
+        setOpenSnackbar(true); 
       }
     } catch (error) {
-      console.error('Error al autenticar usuario:', error.message);
+      setError('Error al autenticar usuario. Verifica tus credenciales.');
+      setOpenSnackbar(true); 
     }
   };
 
@@ -46,6 +47,10 @@ export function LoginIn() {
       ...formData,
       [e.target.name]: e.target.value,
     });
+  };
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false); // Cerrar Snackbar
   };
 
   return (
@@ -91,6 +96,18 @@ export function LoginIn() {
           </p>
         </div>
       </main>
+
+      {/* Snackbar para mostrar errores */}
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+      >
+        <Alert onClose={handleCloseSnackbar} severity="error" sx={{ width: '100%' }}>
+          {error}
+        </Alert>
+      </Snackbar>
     </div>
   );
 }

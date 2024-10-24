@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { GoogleOAuthProvider, useGoogleLogin } from '@react-oauth/google';
 import HeaderDashboardDr from '../../components/Dashboards/HeaderDashDr';
 import AsideDr from '../../components/Dashboards/AsideDr';
@@ -35,7 +35,7 @@ const CalendarioDrContent = () => {
   };
 
   const fetchEvents = async (token) => {
-    console.log('Fetching events with access token:', token);
+    console.log('Fetching events with access token:');
     try {
       const response = await fetch('https://www.googleapis.com/calendar/v3/calendars/primary/events', {
         headers: {
@@ -48,7 +48,6 @@ const CalendarioDrContent = () => {
       }
 
       const data = await response.json();
-      console.log('Events data:', data);
       setEvents(data.items);
     } catch (error) {
       console.error('Error al obtener los eventos de Google Calendar:', error);

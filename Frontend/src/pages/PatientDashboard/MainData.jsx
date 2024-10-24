@@ -1,9 +1,9 @@
 // mainData.jsx
 
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import Aside from "../../components/Dashboards/Aside";
-import { Button, Snackbar, Checkbox, Alert } from "@mui/material"; // Importa el componente Alert de MUI
-import { Settings, Notifications, ExitToApp, HomeRounded } from "@mui/icons-material";
+import { Button, Snackbar, Checkbox, Alert } from "@mui/material";
+import { ExitToApp, HomeRounded } from "@mui/icons-material";
 import HeaderDashboardCl from "../../components/Dashboards/HeaderDashCl";
 import { updateMainData, getProfile } from '../../services/profileService.jsx';
 
@@ -67,7 +67,6 @@ function MainData() {
           }
         });
 
-        // Update checkedItems based on the fetched data
         setCheckedItems({
           alergias: !!data.alergics,
           medicamentos: !!data.whichMedications,
@@ -112,8 +111,8 @@ function MainData() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await updateMainData(formData);
-      console.log('Data updated successfully:', response);
+      await updateMainData(formData);
+      console.log('Data updated successfully:');
       setMessage('Datos actualizados correctamente');
       setOpenSnackbar(true);
     } catch (error) {
@@ -148,6 +147,24 @@ function MainData() {
                 </div>
               ))}
             </div>
+              
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 mt-4"> 
+  {Object.keys(detailsMap).map((detail) => (
+    checkedItems[detail] && (
+      <div key={detail} className="col-span-2 md:col-span-1">
+        <label>{detailsMap[detail]}</label>
+        <input
+          type="text"
+          name={detail}
+          className="block w-full mt-2 px-4 py-2 bg-white border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={formData.details[detail]}
+          onChange={handleDetailChange}
+        />
+      </div>
+    )
+  ))}
+</div>
+
 
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-2 px-2">
               {Object.keys(fieldLabels).map((item, index) => (
